@@ -37,6 +37,37 @@ export default function App() {
     }
   }
 
+  function renderRepo(repo) {
+    return (
+      <>
+        <Text style={styles.repository}>{repo.title}</Text>
+
+        <View style={styles.techsContainer}>
+          {repo.techs.map(tech => {
+            return <Text key={tech} style={styles.tech}>{tech}</Text>;
+          })}
+        </View>
+
+        <View style={styles.likesContainer}>
+          <Text
+            style={styles.likeText}
+            testID={`repository-likes-${repo.id}`}
+          >
+            {`${repo.likes} curtidas`}
+          </Text>
+        </View>
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => handleLikeRepository(repo.id)}
+          testID={`like-button-${repo.id}`}
+        >
+          <Text style={styles.buttonText}>Curtir</Text>
+        </TouchableOpacity>
+      </>
+    );
+  }
+
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor="#7159c1" />
