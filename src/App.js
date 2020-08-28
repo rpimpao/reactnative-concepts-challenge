@@ -23,7 +23,18 @@ export default function App() {
   }, []);
 
   async function handleLikeRepository(id) {
-    // Implement "Like Repository" functionality
+    const repoIndex = repositories.findIndex(repo => repo.id === id);
+    const response = await api.post(`repositories/${id}/like`);
+
+    const repo = response.data;
+
+    if (response.status === 200) {
+      // Request was done successfully
+      const repos = [...repositories];
+      // Replace the previous repo instance with the updated one
+      repos.splice(repoIndex, 1, repo);
+      setRepositories(repos);
+    }
   }
 
   return (
