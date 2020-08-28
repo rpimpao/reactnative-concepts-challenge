@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   SafeAreaView,
@@ -10,7 +10,18 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+import api from './services/api';
+
 export default function App() {
+  const [repositories, setRepositories] = useState([]);
+
+  useEffect(() => {
+    api.get('repositories').then(response => {
+      const repos = response.data;
+      setRepositories(repos);
+    });
+  }, []);
+
   async function handleLikeRepository(id) {
     // Implement "Like Repository" functionality
   }
